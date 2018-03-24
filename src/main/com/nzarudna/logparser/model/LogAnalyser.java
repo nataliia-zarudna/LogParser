@@ -13,7 +13,7 @@ public class LogAnalyser {
         this.requests = requests;
     }
 
-    public HashMap<String, Double> getRequestDurationStatistics() {
+    public NavigableMap<Double, String> getRequestDurationStatistics() {
 
         HashMap<String, RequestStatistics> requestDurations = new HashMap<>();
         for (Request request : requests) {
@@ -31,14 +31,14 @@ public class LogAnalyser {
             statisticsByIdentifier.durationSum += request.getDuration();
         }
 
-        HashMap<String, Double> durationStatistics = new HashMap<>();
+        TreeMap<Double, String> durationStatistics = new TreeMap<>();
         for (String resourceIdentifier : requestDurations.keySet()) {
 
             RequestStatistics requestStatistics = requestDurations.get(resourceIdentifier);
-            durationStatistics.put(resourceIdentifier, requestStatistics.getAverage());
+            durationStatistics.put(requestStatistics.getAverage(), resourceIdentifier);
         }
 
-        return durationStatistics;
+        return durationStatistics.descendingMap();
     }
 
     public SortedMap<Integer, Integer> getHourlyRequestNumberStatistics() {

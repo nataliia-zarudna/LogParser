@@ -1,7 +1,7 @@
 package com.nzarudna.logparser.model.out;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.NavigableMap;
 import java.util.SortedMap;
 
 public class ConsoleStatisticsPrinter extends StatisticsPrinter {
@@ -10,15 +10,26 @@ public class ConsoleStatisticsPrinter extends StatisticsPrinter {
     private static final int HISTOGRAM_STEP_COUNT = 6;
 
     @Override
-    public void printDurationStatistics(HashMap<String, Double> durationStatistics) {
+    public void printDurationStatistics(NavigableMap<Double, String> durationStatistics, int showLinesCount) {
 
-        for (String identifier : durationStatistics.keySet()) {
-            System.out.println(identifier + " - " + durationStatistics.get(identifier));
+        System.out.println(showLinesCount + " requests with highest average duration:");
+
+        int i = 0;
+        for (Double duration : durationStatistics.keySet()) {
+            System.out.println(durationStatistics.get(duration) + " - " + duration);
+
+            if (++i == showLinesCount) {
+                break;
+            }
         }
+
+        System.out.println();
     }
 
     @Override
     public void drawHistogram(SortedMap<Integer, Integer> statisticsData) {
+
+        System.out.println("Histogram of hourly number of requests (number/hour):");
 
         Collection<Integer> values = statisticsData.values();
         int maxValue = 0;
@@ -28,7 +39,7 @@ public class ConsoleStatisticsPrinter extends StatisticsPrinter {
             }
         }
 
-        int step = calculateStep(HISTOGRAM_MAX_HEIGHT, HISTOGRAM_STEP_COUNT, maxValue);
+        int step = calculateStep(HISTOGRAM_STEP_COUNT, maxValue);
         int scaledStep = HISTOGRAM_MAX_HEIGHT * step / maxValue;
         int stepCount = 0;
         System.out.print("  ");
@@ -42,26 +53,27 @@ public class ConsoleStatisticsPrinter extends StatisticsPrinter {
         }
         System.out.print('\n');
 
-        for( int i = 0; i < (HISTOGRAM_MAX_HEIGHT + scaledStep) * 2; i++) {
+        for (int i = 0; i < (HISTOGRAM_MAX_HEIGHT + scaledStep) * 2; i++) {
             System.out.print('-');
         }
         System.out.print('\n');
 
-        for (int key : statisticsData.keySet()) {
+        for (int hour = 0; hour < 24; hour++) {
+            System.out.print(hour + "h | ");
 
-            System.out.print(key);
-            System.out.print(" | ");
-            for (int i = 0; i < statisticsData.get(key) * HISTOGRAM_MAX_HEIGHT / maxValue; i++) {
-                System.out.print("* ");
+            if (statisticsData.containsKey(hour)) {
+                int requestCount = statisticsData.get(hour);
+                for (int i = 0; i < requestCount * HISTOGRAM_MAX_HEIGHT / maxValue; i++) {
+                    System.out.print("* ");
+                }
             }
             System.out.print('\n');
         }
     }
 
-    private int calculateStep(int histogramMaxHeight, int stepCount, int maxValue) {
+    private int calculateStep(int stepCount, int maxValue) {
 
         int minStep = maxValue / (stepCount - 1);
-        int roundedMinStep = ((int) (minStep / 10)) * 10;
-        return roundedMinStep;
+        return  ((int) (minStep / 10)) * 10;
     }
 }

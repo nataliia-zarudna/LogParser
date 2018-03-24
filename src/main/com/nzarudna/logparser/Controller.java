@@ -11,17 +11,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.SortedMap;
+import java.util.*;
 
 public class Controller {
 
 	public static void main(String[] args) {
 		
 		String fileName = args[0];
-		
+		int topDurationRequestsCount = Integer.parseInt(args[1]);
+
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
@@ -37,8 +35,9 @@ public class Controller {
 			StatisticsPrinter printer = PrinterFactory.getInstance();
 			LogAnalyser logAnalyser = new LogAnalyser(requests);
 
-			HashMap<String, Double> requestDurationStatistics = logAnalyser.getRequestDurationStatistics();
-			printer.printDurationStatistics(requestDurationStatistics);
+			NavigableMap<Double, String> requestDurationStatistics
+					= logAnalyser.getRequestDurationStatistics();
+			printer.printDurationStatistics(requestDurationStatistics, topDurationRequestsCount);
 
 			SortedMap<Integer, Integer> hourlyRequestNumberStatistics = logAnalyser.getHourlyRequestNumberStatistics();
 			printer.drawHistogram(hourlyRequestNumberStatistics);
