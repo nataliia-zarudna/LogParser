@@ -60,6 +60,11 @@ public class ConsoleStatisticsPrinter extends StatisticsPrinter {
         System.out.printf("Program run for %d milliseconds", duration);
     }
 
+    @Override
+    public void printHelp(String helpText) {
+        System.out.println(helpText);
+    }
+
     private void printDurationScale(int maxValue) {
         int step = calculateStep(HISTOGRAM_STEP_COUNT, maxValue);
         int scaledStep = HISTOGRAM_MAX_HEIGHT * step / maxValue;

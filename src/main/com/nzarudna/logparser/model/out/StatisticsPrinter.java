@@ -10,4 +10,6 @@ public abstract class StatisticsPrinter {
     public abstract void drawHistogram(SortedMap<Integer, Integer> statisticsData);
 
     public abstract void printProgramExecuteDuration(long duration);
+
+    public abstract void printHelp(String helpText);
 }

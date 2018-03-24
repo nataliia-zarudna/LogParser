@@ -19,9 +19,23 @@ import java.util.SortedMap;
 
 public class Controller {
 
+	private static final String HELP_TEXT = "Usage: java -jar [jar_name] [log_path] [top_requests_duration]";
+
 	public static void main(String[] args) {
         Instant start = Instant.now();
-		
+
+        if ("-h".equals(args[0])) {
+        	PrinterFactory.getInstance().printHelp(HELP_TEXT);
+		} else {
+			showStatistics(args);
+		}
+
+		Instant end = Instant.now();
+        Duration duration = Duration.between(start, end);
+        PrinterFactory.getInstance().printProgramExecuteDuration(duration.toMillis());
+	}
+
+	private static void showStatistics(String[] args) {
 		String fileName = args[0];
 		int topDurationRequestsCount = Integer.parseInt(args[1]);
 
@@ -58,9 +72,5 @@ public class Controller {
 				}
 			}
 		}
-
-		Instant end = Instant.now();
-        Duration duration = Duration.between(start, end);
-        PrinterFactory.getInstance().printProgramExecuteDuration(duration.toMillis());
 	}
 }
