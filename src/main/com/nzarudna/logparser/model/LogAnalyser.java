@@ -49,7 +49,7 @@ public class LogAnalyser {
         for (Request request : requests) {
 
             calendar.setTime(request.getDatetime());
-            Integer requestHour = calendar.get(Calendar.MINUTE); //TODO: for test. Replace with HOUR_OF_DAY
+            Integer requestHour = calendar.get(Calendar.HOUR_OF_DAY);
 
             int requestNumber = 0;
             if (requestNumberStatistics.containsKey(requestHour)) {

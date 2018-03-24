@@ -1,14 +1,8 @@
 package com.nzarudna.logparser.model;
 
 import java.util.Date;
-import java.util.HashMap;
 
 public abstract class Request {
-	
-	enum LogType {
-		URI,
-		RESOURCE
-	}
 
 	private Date datetime;
 	private String threadName;

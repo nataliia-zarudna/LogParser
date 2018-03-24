@@ -39,6 +39,28 @@ public class ConsoleStatisticsPrinter extends StatisticsPrinter {
             }
         }
 
+        printDurationScale(maxValue);
+
+        for (int hour = 0; hour < 24; hour++) {
+            System.out.print(hour + "h | ");
+
+            if (statisticsData.containsKey(hour)) {
+                int requestCount = statisticsData.get(hour);
+                for (int i = 0; i < requestCount * HISTOGRAM_MAX_HEIGHT / maxValue; i++) {
+                    System.out.print("* ");
+                }
+            }
+            System.out.print('\n');
+        }
+    }
+
+    @Override
+    public void printProgramExecuteDuration(long duration) {
+        System.out.println();
+        System.out.printf("Program run for %d milliseconds", duration);
+    }
+
+    private void printDurationScale(int maxValue) {
         int step = calculateStep(HISTOGRAM_STEP_COUNT, maxValue);
         int scaledStep = HISTOGRAM_MAX_HEIGHT * step / maxValue;
         int stepCount = 0;
@@ -57,18 +79,6 @@ public class ConsoleStatisticsPrinter extends StatisticsPrinter {
             System.out.print('-');
         }
         System.out.print('\n');
-
-        for (int hour = 0; hour < 24; hour++) {
-            System.out.print(hour + "h | ");
-
-            if (statisticsData.containsKey(hour)) {
-                int requestCount = statisticsData.get(hour);
-                for (int i = 0; i < requestCount * HISTOGRAM_MAX_HEIGHT / maxValue; i++) {
-                    System.out.print("* ");
-                }
-            }
-            System.out.print('\n');
-        }
     }
 
     private int calculateStep(int stepCount, int maxValue) {
