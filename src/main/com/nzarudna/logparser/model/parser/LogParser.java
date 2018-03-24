@@ -1,8 +1,8 @@
 package com.nzarudna.logparser.model.parser;
 
-import com.nzarudna.logparser.model.Request;
-import com.nzarudna.logparser.model.ResourceRequest;
-import com.nzarudna.logparser.model.UriRequest;
+import com.nzarudna.logparser.model.request.Request;
+import com.nzarudna.logparser.model.request.ResourceRequest;
+import com.nzarudna.logparser.model.request.UriRequest;
 
 import java.net.URI;
 import java.text.ParseException;

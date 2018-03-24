@@ -1,7 +1,7 @@
 package com.nzarudna.logparser;
 
 import com.nzarudna.logparser.model.LogAnalyser;
-import com.nzarudna.logparser.model.Request;
+import com.nzarudna.logparser.model.request.Request;
 import com.nzarudna.logparser.model.out.PrinterFactory;
 import com.nzarudna.logparser.model.out.StatisticsPrinter;
 import com.nzarudna.logparser.model.parser.LogParser;

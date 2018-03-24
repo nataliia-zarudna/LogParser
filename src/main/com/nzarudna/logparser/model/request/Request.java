@@ -1,4 +1,4 @@
-package com.nzarudna.logparser.model;
+package com.nzarudna.logparser.model.request;
 
 import java.util.Date;
 
@@ -8,6 +8,8 @@ public abstract class Request {
 	private String threadName;
 	private String userContext;
 	private int duration;
+
+	public Request() {}
 
 	public Request(Date datetime, String threadName, String userContext, int duration) {
 		this.datetime = datetime;

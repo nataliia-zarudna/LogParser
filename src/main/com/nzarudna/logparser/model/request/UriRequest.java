@@ -1,4 +1,4 @@
-package com.nzarudna.logparser.model;
+package com.nzarudna.logparser.model.request;
 
 import java.net.URI;
 import java.util.Date;
@@ -6,6 +6,10 @@ import java.util.Date;
 public class UriRequest extends Request {
 
     private URI uri;
+
+    public UriRequest() {
+        super();
+    }
 
     public UriRequest(Date datetime, String threadName, String userContext, URI uri, int duration) {
         super(datetime, threadName, userContext, duration);

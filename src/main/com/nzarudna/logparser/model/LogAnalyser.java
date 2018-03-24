@@ -1,5 +1,7 @@
 package com.nzarudna.logparser.model;
 
+import com.nzarudna.logparser.model.request.Request;
+
 import java.util.*;
 
 /**
