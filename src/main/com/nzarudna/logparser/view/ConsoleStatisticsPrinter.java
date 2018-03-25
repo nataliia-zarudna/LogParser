@@ -9,6 +9,11 @@ public class ConsoleStatisticsPrinter implements StatisticsPrinter {
     private static final int HISTOGRAM_MAX_HEIGHT = 50;
     private static final int HISTOGRAM_STEP_COUNT = 6;
 
+    /**
+     * Prints first n elements of statistics data
+     * @param durationStatistics statistics data
+     * @param showLinesCount print elements count
+     */
     @Override
     public void printDurationStatistics(NavigableMap<Double, String> durationStatistics, int showLinesCount) {
 
@@ -26,6 +31,10 @@ public class ConsoleStatisticsPrinter implements StatisticsPrinter {
         System.out.println();
     }
 
+    /**
+     * Draws histogram hour -> request numbers
+     * @param statisticsData statistics to display
+     */
     @Override
     public void drawHistogram(SortedMap<Integer, Integer> statisticsData) {
 
@@ -54,12 +63,20 @@ public class ConsoleStatisticsPrinter implements StatisticsPrinter {
         }
     }
 
+    /**
+     * Prints program execute duration in ms
+     * @param duration
+     */
     @Override
     public void printProgramExecuteDuration(long duration) {
         System.out.println();
         System.out.printf("Program run for %d milliseconds", duration);
     }
 
+    /**
+     * Prints program help text
+     * @param helpText text to print
+     */
     @Override
     public void printHelp(String helpText) {
         System.out.println(helpText);

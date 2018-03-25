@@ -2,6 +2,9 @@ package com.nzarudna.logparser.model.request;
 
 import java.util.Date;
 
+/**
+ * Abstract request
+ */
 public abstract class Request {
 
 	private Date datetime;

@@ -3,6 +3,9 @@ package com.nzarudna.logparser.model.request;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Request to resource
+ */
 public class ResourceRequest extends Request {
 
     private String resourceName;

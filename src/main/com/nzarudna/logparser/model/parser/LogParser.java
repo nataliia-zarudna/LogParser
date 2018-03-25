@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses logs to Request objects
+ */
 public class LogParser {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss,SSS";
@@ -35,6 +38,12 @@ public class LogParser {
     private LogParser() {
     }
 
+    /**
+     * Parse log line to Request object
+     * @param logLine string that includes log about one request
+     * @return parsed request
+     * @throws LogParserException if string has unexpected data
+     */
     public Request parseLog(String logLine) throws LogParserException {
 
         Date datetime = getRequestDatetime(logLine);

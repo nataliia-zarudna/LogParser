@@ -5,7 +5,7 @@ import com.nzarudna.logparser.model.request.Request;
 import java.util.*;
 
 /**
- * Class that analyses logs and aggregates statistics data
+ * Analyses logs and aggregates statistics data
  */
 public class LogAnalyser {
 
@@ -15,6 +15,10 @@ public class LogAnalyser {
         this.requests = requests;
     }
 
+    /**
+     * Group requests by resource name and order them by average request duration
+     * @return map duration -> resource name
+     */
     public NavigableMap<Double, String> getRequestDurationStatistics() {
 
         HashMap<String, RequestStatistics> requestDurations = new HashMap<>();
@@ -43,6 +47,10 @@ public class LogAnalyser {
         return durationStatistics.descendingMap();
     }
 
+    /**
+     * Group requests by day hour and calculates request number by hours
+     * @return map hour -> request number
+     */
     public SortedMap<Integer, Integer> getHourlyRequestNumberStatistics() {
 
         SortedMap<Integer, Integer> requestNumberStatistics = new TreeMap<>();

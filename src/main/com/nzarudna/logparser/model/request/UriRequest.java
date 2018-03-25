@@ -3,6 +3,9 @@ package com.nzarudna.logparser.model.request;
 import java.net.URI;
 import java.util.Date;
 
+/**
+ * Request to URI
+ */
 public class UriRequest extends Request {
 
     private URI uri;
