@@ -1,29 +1,62 @@
-<project default="jar">
+<project name="LogParser" basedir="." default="build">
 
-    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="src.dir" value="src/main"/>
+    <property name="test.src.dir" value="src/test"/>
 
-    <path id="compile.classpath">
+    <property name="build.dir" value="dist"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}"/>
+    <property name="jar.file" value="${jar.dir}/${ant.project.name}.jar"/>
+
+    <property name="lib.dir" value="lib"/>
+    <property name="test.build.dir" value="${build.dir}/tests"/>
+    <property name="test.classes.dir" value="${test.build.dir}/classes"/>
+
+    <property name="main-class" value="com.nzarudna.logparser.Controller"/>
+
+    <path id="classpath">
         <fileset dir="${lib.dir}">
             <include name="**/*.jar"/>
         </fileset>
     </path>
 
     <target name="clean">
-        <delete dir="dist"/>
+        <delete dir="${build.dir}"/>
     </target>
 
     <target name="compile" depends="clean">
-        <mkdir dir="dist/classes"/>
-        <javac srcdir="src" destdir="dist/classes">
-            <classpath refid="compile.classpath"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <target name="compile_tests" depends="compile">
+        <mkdir dir="${test.classes.dir}"/>
+        <javac srcdir="${test.src.dir}" destdir="${test.build.dir}">
+            <classpath location="${classes.dir}"/>
+            <classpath refid="classpath"/>
         </javac>
     </target>
 
-    <target name="jar" depends="compile">
-        <mkdir dir="dist"/>
-        <jar destfile="dist/LogParser.jar" basedir="dist/classes">
+    <target name="test" depends="compile_tests">
+        <junit printsummary="on" fork="yes">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${classes.dir}"/>
+                <path location="${test.build.dir}"/>
+            </classpath>
+            <formatter type="brief" usefile="false"/>
+
+            <batchtest>
+                <fileset dir="${test.src.dir}" includes="**/*Test.java"/>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="build" depends="compile,test">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.file}" basedir="${classes.dir}">
             <manifest>
-                <attribute name="Main-Class" value="com.nzarudna.logparser.Controller"/>
+                <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
         </jar>
     </target>
