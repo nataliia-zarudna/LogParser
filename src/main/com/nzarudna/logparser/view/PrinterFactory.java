@@ -1,4 +1,4 @@
-package com.nzarudna.logparser.model.out;
+package com.nzarudna.logparser.view;
 
 public class PrinterFactory {
 

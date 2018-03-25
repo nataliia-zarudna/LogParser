@@ -1,10 +1,10 @@
-package com.nzarudna.logparser.model.out;
+package com.nzarudna.logparser.view;
 
 import java.util.Collection;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 
-public class ConsoleStatisticsPrinter extends StatisticsPrinter {
+public class ConsoleStatisticsPrinter implements StatisticsPrinter {
 
     private static final int HISTOGRAM_MAX_HEIGHT = 50;
     private static final int HISTOGRAM_STEP_COUNT = 6;

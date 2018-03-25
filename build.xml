@@ -1,0 +1,31 @@
+<project default="jar">
+
+    <property name="lib.dir" value="${basedir}/lib"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="dist"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="dist/classes"/>
+        <javac srcdir="src" destdir="dist/classes">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="dist"/>
+        <jar destfile="dist/LogParser.jar" basedir="dist/classes">
+            <manifest>
+                <attribute name="Main-Class" value="com.nzarudna.logparser.Controller"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
