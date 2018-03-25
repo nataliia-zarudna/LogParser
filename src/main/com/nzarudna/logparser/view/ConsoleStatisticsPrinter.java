@@ -6,7 +6,7 @@ import java.util.SortedMap;
 
 public class ConsoleStatisticsPrinter implements StatisticsPrinter {
 
-    private static final int HISTOGRAM_MAX_HEIGHT = 50;
+    private static final int HISTOGRAM_MAX_HEIGHT = 20;
     private static final int HISTOGRAM_STEP_COUNT = 6;
 
     /**
